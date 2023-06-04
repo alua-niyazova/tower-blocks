@@ -1,9 +1,9 @@
-
+add_library('minim')  # add the Minim library
 
 def setup():
     global gamestage, bg, block, angle, angleA, angleV, gravity, lineLen, lineOriginX, lineOriginY
     global blockX, blockY, blockW, blockH, climb, hide, blockFall, blockLanded, lives, score, maxScore, exitBtn, restartBtn
-    global exitOver, restartOver
+    global  gameoverSound
     
     exitOver = False
     restartOver = False
@@ -13,6 +13,10 @@ def setup():
     block = loadImage("block.png")
     exitBtn = loadImage("exit.png")
     restartBtn = loadImage("restart.png")
+    # create a Minim object 
+    minim = Minim(this)    
+    # load the song into the player
+    gameoverSound = minim.loadFile("gameOverSound.mp3")
     gamestage = 0
     angle = PI/4
     angleA = 0
@@ -110,7 +114,8 @@ def gamePlayPage():
     
     if(lives == 0):
         gamestage = 2
-        gameOverPage()
+        gameoverSound.rewind() #rewind to the begining of the song
+        gameoverSound.play()
     ################# GAMEPLAY PAGE #################  
     
   
